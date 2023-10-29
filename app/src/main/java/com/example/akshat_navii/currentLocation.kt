@@ -72,8 +72,13 @@ class currentLocation : Fragment() {
 
                     // Retrieve the position for the specified room
                     val position = roomLocations[location]
+
                     val locationPointer = rootView.findViewById<ImageView>(R.id.locationPointer)
+
                     if (position != null) {
+
+
+
                         // Show the location pointer
 
                         locationPointer.visibility = View.VISIBLE
