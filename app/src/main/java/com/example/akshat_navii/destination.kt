@@ -56,6 +56,8 @@ class destination : Fragment() {
                 Log.d(TAG,"Failed to read value.")
             }
         })
+        locationText.text = "Loading your location..."
+
         val buttonMap: Button = view.findViewById(R.id.buttonMap)
         buttonMap.setOnClickListener {
             // Save the selected location to Firebase Realtime Database
