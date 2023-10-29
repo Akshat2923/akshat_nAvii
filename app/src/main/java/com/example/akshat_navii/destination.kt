@@ -19,6 +19,7 @@ class destination : Fragment() {
     private lateinit var spinner: Spinner
     private lateinit var textView: TextView
     private var selectedLocation: String = ""
+    private var loads = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +42,12 @@ class destination : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val locationRef = database.getReference("location")
-
+                loads += 1
                 locationRef.get().addOnSuccessListener { dataSnapshot ->
                     val location = dataSnapshot.getValue(String::class.java)
-                    locationText.text = "You are at $location"
+                    if (loads >= 2) {
+                        locationText.text = "You are at $location"
+                    }
                     // Now you can use the location value
                 }.addOnFailureListener{
                     Log.w(TAG, "Failed to read value.")
