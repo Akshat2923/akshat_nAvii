@@ -1,59 +1,101 @@
 package com.example.akshat_navii
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
+import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [destination.newInstance] factory method to
- * create an instance of this fragment.
- */
 class destination : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var spinner: Spinner
+    private lateinit var textView: TextView
+    private var selectedLocation: String = ""
+    private var loads = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_destination, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_destination, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment destination.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            destination().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        spinner = view.findViewById(R.id.spinner)
+        val locationText: TextView = view.findViewById(R.id.locationText)
+        textView = view.findViewById(R.id.textView)
+
+        // Add ValueEventListener to Firebase reference
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("locationSetTimestamp")
+        //val myLocation = database.getReference("location")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val locationRef = database.getReference("location")
+                loads += 1
+                locationRef.get().addOnSuccessListener { dataSnapshot ->
+                    val location = dataSnapshot.getValue(String::class.java)
+                    if (loads >= 2) {
+                        locationText.text = "You are at $location"
+                    }
+                    // Now you can use the location value
+                }.addOnFailureListener{
+                    Log.w(TAG, "Failed to read value.")
                 }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.d(TAG,"Failed to read value.")
+            }
+        })
+        locationText.text = "Loading your location..."
+
+        val buttonMap: Button = view.findViewById(R.id.buttonMap)
+        buttonMap.setOnClickListener {
+            // Save the selected location to Firebase Realtime Database
+            // Navigate to the next fragment
+            (activity as MainActivity).replaceFragment(currentLocation())
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                selectedLocation = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action when nothing is selected
+            }
+        }
+
+        val buttonGoTime: Button = view.findViewById(R.id.buttonGoTime)
+        buttonGoTime.setOnClickListener {
+            // Save the selected location to Firebase Realtime Database
+            val myRef = database.getReference("selectedLocation")
+            myRef.setValue(selectedLocation)
+
+            // Save the current timestamp to a new Firebase Realtime Database variable
+            val newTimestampRef = database.getReference("newTimestamp")
+            newTimestampRef.setValue(ServerValue.TIMESTAMP)
+
+            // Navigate to the next fragment
+            (activity as MainActivity).replaceFragment(instructions())
+        }
+
+
+        return view
     }
 }

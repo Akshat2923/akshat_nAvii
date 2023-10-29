@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations_array">
+        <item>Click For Options</item>
+        <item>Union Market</item>
+        <item>Great Ballroom</item>
+        <item>Sloopys Diner</item>
+        <item>Buckid Room</item>
+        <item>Espress OH</item>
+        <item>Woodys Tavern</item>
+        <item>West Entrance/Exit</item>
+        <item>East Entrance/Exit</item>
+    </string-array>
+</resources>

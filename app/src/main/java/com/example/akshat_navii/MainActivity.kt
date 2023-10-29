@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    public fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainLayout, fragment)
@@ -31,4 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         fragmentTransaction.commit()
     }
+    public fun goBackToFirst() {
+        val fragmentManager = supportFragmentManager
+        // Clear the back stack
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            fragmentManager.popBackStack()
+        }
+    }
+    public fun goBack() {
+        val fragmentManager = supportFragmentManager
+        // Clear the back stack
+            fragmentManager.popBackStack()
+    }
+
 }
