@@ -7,13 +7,16 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="112dp"
-        android:layout_height="23dp"
-        android:text="welcome to nAvvi"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:text="welcome to nAvii"
+        android:textSize="30sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
 

@@ -14,9 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Locate yourself by taking a couple pictures"
+        android:text="Locate yourself by taking a couple of pictures"
         android:layout_marginBottom="100dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         />
 
     <ImageButton
