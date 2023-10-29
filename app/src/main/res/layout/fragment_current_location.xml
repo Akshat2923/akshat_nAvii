@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5DC"
+
     tools:context=".currentLocation">
 
     <ImageView
@@ -72,7 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/floor3map"
-        android:visibility="gone"
          />
 
     <!-- Room name TextViews for Floor 3 -->

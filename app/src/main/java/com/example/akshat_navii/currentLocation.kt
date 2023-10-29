@@ -23,14 +23,14 @@ class currentLocation : Fragment() {
 
         // Add ValueEventListener to Firebase reference
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("locationSetTimestamp")
+        val myRef = database.getReference("location")
 
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val locationRef = database.getReference("location")
-
-                locationRef.get().addOnSuccessListener { dataSnapshot ->
-                    location = dataSnapshot.getValue(String::class.java)  // Update the global variable
+//        myRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                val locationRef = database.getReference("location")
+//
+//                locationRef.get().addOnSuccessListener { dataSnapshot ->
+                    location = "floor2_main_ballroom"  // Update the global variable
 
                     // Mapping of room names to location data for each floor
                     val roomLocationsFloor1 = mapOf(
@@ -90,15 +90,15 @@ class currentLocation : Fragment() {
                         locationPointerParams.topMargin = y
                         locationPointer.layoutParams = locationPointerParams
                     }
-                }.addOnFailureListener{
-                    Log.w(TAG, "Failed to read value.")
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG,"Failed to read value.")
-            }
-        })
+//                }.addOnFailureListener{
+//                    Log.w(TAG, "Failed to read value.")
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d(TAG,"Failed to read value.")
+//            }
+//        })
 
         return rootView
     }
