@@ -13,11 +13,19 @@
         android:layout_gravity="center_horizontal|top"
         />
 
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
+        <Button
+            android:id="@+id/buttonMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Map"
+            android:layout_gravity="bottom|center_horizontal" />
 
 
         <TextView

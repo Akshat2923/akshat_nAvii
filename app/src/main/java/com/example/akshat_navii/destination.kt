@@ -79,6 +79,12 @@ class destination : Fragment() {
             // Navigate to the next fragment
             (activity as MainActivity).replaceFragment(instructions())
         }
+        val buttonMap: Button = view.findViewById(R.id.buttonMap)
+        buttonMap.setOnClickListener {
+            // Save the selected location to Firebase Realtime Database
+            // Navigate to the next fragment
+            (activity as MainActivity).replaceFragment(currentLocation())
+        }
 
         return view
     }
