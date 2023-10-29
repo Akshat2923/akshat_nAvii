@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 
 class currentLocation : Fragment() {
     private var currentFloor: Int = 1
@@ -43,7 +44,7 @@ class currentLocation : Fragment() {
                     val roomLocationsFloor2 = mapOf(
                         "floor2_alumni_room_in_corner" to Pair(53, 505),
                         "floor2_front_lounge" to Pair(223, 419),
-                        "floor2_hallway_leadership_service" to Pair(273, 488),
+                        "floor2_hallway_learship_service" to Pair(273, 488),
                         "floor2_main_ballroom" to Pair(139, 301)
                         // Add more rooms and positions for floor 2 as needed
                     )
@@ -53,6 +54,13 @@ class currentLocation : Fragment() {
                         "floor3_door_hall" to Pair(251, 448)
                         // Add more rooms and positions for floor 3 as needed
                     )
+                    val floor2 = listOf("floor2_alumni_room_in_corner", "floor2_front_lounge", "floor2_hallway_learship_service", "floor2_main_ballroom")
+                    val floor3 = listOf("floor3_buckid", "floor3_door_hall")
+                    if (floor2.contains(location)) {
+                        currentFloor = 2
+                    } else if (floor3.contains(location)) {
+                        currentFloor = 3
+                    }
 
                     // Get the current floor's room locations
                     val roomLocations = when (currentFloor) {
@@ -64,10 +72,10 @@ class currentLocation : Fragment() {
 
                     // Retrieve the position for the specified room
                     val position = roomLocations[location]
-
+                    val locationPointer = rootView.findViewById<ImageView>(R.id.locationPointer)
                     if (position != null) {
                         // Show the location pointer
-                        val locationPointer = rootView.findViewById<ImageView>(R.id.locationPointer)
+
                         locationPointer.visibility = View.VISIBLE
 
                         // Update the position of the location pointer
