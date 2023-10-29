@@ -31,4 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         fragmentTransaction.commit()
     }
+    public fun goBackToFirst() {
+        val fragmentManager = supportFragmentManager
+        // Clear the back stack
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            fragmentManager.popBackStack()
+        }
+    }
+
 }
