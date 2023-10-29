@@ -82,6 +82,10 @@ class destination : Fragment() {
             val myRef = database.getReference("selectedLocation")
             myRef.setValue(selectedLocation)
 
+            // Save the current timestamp to a new Firebase Realtime Database variable
+            val newTimestampRef = database.getReference("newTimestamp")
+            newTimestampRef.setValue(ServerValue.TIMESTAMP)
+
             // Navigate to the next fragment
             (activity as MainActivity).replaceFragment(instructions())
         }

@@ -38,5 +38,10 @@ class MainActivity : AppCompatActivity() {
             fragmentManager.popBackStack()
         }
     }
+    public fun goBack() {
+        val fragmentManager = supportFragmentManager
+        // Clear the back stack
+            fragmentManager.popBackStack()
+    }
 
 }
